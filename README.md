@@ -4,6 +4,8 @@ Este projeto implementa soluções arquiteturais para o ecossistema de streaming
 
 ---
 
+## PARTICIPANTES: MARIA EDUARDA SOUZA, MARIANA SANTOS, THAIS MENEZES
+
 ## 1. Questão I: Composite + Builder
 
 *   **Nome dos Padrões:** `Composite` e `Builder`.
