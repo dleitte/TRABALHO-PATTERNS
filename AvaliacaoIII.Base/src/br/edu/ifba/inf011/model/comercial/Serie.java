@@ -12,6 +12,7 @@ public class Serie implements ComponenteComercial {
     
     public Serie(String titulo, Integer temporada) {
         this.titulo = titulo;
+        this.temporada = temporada;
         this.episodios = new ArrayList<>();
     }
     
