@@ -2,42 +2,53 @@ package br.edu.ifba.inf011.model.comercial;
 
 import java.util.ArrayList;
 import java.util.List;
+import br.edu.ifba.inf011.model.playlist.PlaylistVisitor;
 
-public class Serie {
+public class Serie implements ComponenteComercial {
 
-	protected String titulo;
-	protected Integer temporada;
-    protected List<Episodio> episodios;
+    protected String titulo;
+    protected Integer temporada;
+    protected List<ComponenteComercial> episodios;
     
     public Serie(String titulo, Integer temporada) {
-    	this.titulo = titulo;
-    	this.episodios = new ArrayList<Episodio>();
-    };
+        this.titulo = titulo;
+        this.episodios = new ArrayList<>();
+    }
     
+    public void adicionarEpisodio(ComponenteComercial episodio) {
+        this.episodios.add(episodio);
+    }
+
+    public void removerEpisodio(ComponenteComercial episodio) {
+        this.episodios.remove(episodio);
+    }
+
+    @Override
     public String getTitulo() {
-    	return this.titulo;
+        return this.titulo;
     }
         
+    @Override
     public Double getPreco() {
-        double soma = this.episodios.stream().mapToDouble(Episodio::getPreco).sum();
-        return soma * 0.9;
+        double soma = this.episodios.stream().mapToDouble(ComponenteComercial::getPreco).sum();
+        return soma * 0.9; 
     }
         
-    public Double getDuracao() {
-        return  this.episodios.stream().mapToDouble(Episodio::getDuracao).sum();
+    @Override
+    public Integer getDuracao() {
+        return this.episodios.stream().mapToInt(ComponenteComercial::getDuracao).sum();
     }    
     
     public Integer getTemporada() {
-    	return this.temporada;
+        return this.temporada;
     }
     
-
-	public String toXML() {
-		String xml = "\t<serie titulo=\"" + this.getTitulo() + "\" temporada=\"" + this.getTemporada() + "\">\n";
-		for(Episodio episodio : this.episodios)
-			xml += episodio.toXML();
-		return xml + "\t</serie>\n";
-		
-	}    
-
+    @Override
+    public void accept(PlaylistVisitor visitor) {
+        visitor.visitSerie(this);
+    }
+    
+    public List<ComponenteComercial> getEpisodios() {
+        return this.episodios;
+    }
 }

@@ -1,6 +1,6 @@
 package br.edu.ifba.inf011.model.playlist;
 
-public class MP3 implements PlaylistItem {
+public class MP3 {
     public String nome;
     public double tamanhoMegaBytes;
 
@@ -10,20 +10,10 @@ public class MP3 implements PlaylistItem {
     }
     
     public double getTamanhoMegaBytes() {
-    	return this.tamanhoMegaBytes;
+        return this.tamanhoMegaBytes;
     }
 
     public String getNome() {
-    	return this.nome;
+        return this.nome;
     }
-
-	@Override
-	public String toXML() {
-		return "<mp3 nome=\"" + this.getNome() + "\"/>\n";
-	}
-
-	@Override
-	public Double getBandwidth(Double bandPerSecond) {
-		return this.getTamanhoMegaBytes();
-	}
 }

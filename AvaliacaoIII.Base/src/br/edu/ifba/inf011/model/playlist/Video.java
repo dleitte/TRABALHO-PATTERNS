@@ -1,7 +1,6 @@
 package br.edu.ifba.inf011.model.playlist;
 
-public class Video implements PlaylistItem {
-	
+public class Video {
     public String nome;
     public double tamanhoMegaBytes;
     public String link;
@@ -13,25 +12,14 @@ public class Video implements PlaylistItem {
     }
     
     public double getTamanhoMegaBytes() {
-    	return this.tamanhoMegaBytes;
+        return this.tamanhoMegaBytes;
     }
 
-    
     public String getNome() {
-    	return this.nome;
+        return this.nome;
     }
 
-	@Override
-	public String toXML() {
-		return "  <video nome=\"" + this.getNome() + "\" link=\"" + this.getLink() + "\"/>\n";
-	}
-
-	private String getLink() {
-		return this.link;
-	}
-
-	@Override
-	public Double getBandwidth(Double bandPerSecond) {
-		return this.getTamanhoMegaBytes();
-	}
+    public String getLink() {
+        return this.link;
+    }
 }

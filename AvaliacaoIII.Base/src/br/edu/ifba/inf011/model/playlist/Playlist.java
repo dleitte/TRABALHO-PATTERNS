@@ -2,35 +2,32 @@ package br.edu.ifba.inf011.model.playlist;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Playlist{
-	
-	private List<PlaylistItem> items;
-	
-	public Playlist() {
-		this.items = new ArrayList<PlaylistItem>();
-	}
-	
-	public void addItem(PlaylistItem item) {
-		this.items.add(item);
-	}
-	
-	public String toXML() {
-		
-		String xml = this.items.stream()
-                	.map(PlaylistItem::toXML)
-                	.collect(Collectors.joining());
-		return "<playlist>\n" 
-				+ xml 
-				+"</playlist>\n";
-	}
+public class Playlist {
+    
+    private List<PlaylistItem> items;
+    
+    public Playlist() {
+        this.items = new ArrayList<>();
+    }
+    
+    public void addItem(PlaylistItem item) {
+        this.items.add(item);
+    }
+    
+    public String toXML() {
+        XMLVisitor visitor = new XMLVisitor();
+        for(PlaylistItem item : this.items) {
+            item.accept(visitor);
+        }
+        return "<playlist>\n" + visitor.getResult() + "</playlist>\n";
+    }
 
-	public Double getBandaTotal() {
-	    return this.items.stream()
-	                     .mapToDouble(item -> item.getBandwidth(PlaylistItem.BAND_PER_SECOND))
-	                     .sum();
-	}
-
-	
+    public Double getBandaTotal() {
+        BandwidthVisitor visitor = new BandwidthVisitor();
+        for(PlaylistItem item : this.items) {
+            item.accept(visitor);
+        }
+        return visitor.getResult();
+    }
 }
